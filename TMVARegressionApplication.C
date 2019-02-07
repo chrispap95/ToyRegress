@@ -122,7 +122,7 @@ void TMVARegressionApplication( TString myMethodList = "" )
    TH1* hists[100];
    Int_t nhists = -1;
    for (std::map<std::string,int>::iterator it = Use.begin(); it != Use.end(); it++) {
-      TH1* h = new TH1F( it->first.c_str(), TString(it->first) + " method", 100, -100, 600 );
+     TH1* h = new TH1F( it->first.c_str(), TString(it->first) + " method", 100, 0.,1.);
       if (it->second) hists[++nhists] = h;
    }
    nhists++;
@@ -164,7 +164,7 @@ void TMVARegressionApplication( TString myMethodList = "" )
    sw.Start();
    for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
 
-      if (ievt%1000 == 0) {
+      if (ievt%10 == 0) {
          std::cout << "--- ... Processing event: " << ievt << std::endl;
       }
 
