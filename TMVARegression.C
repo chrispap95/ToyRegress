@@ -174,10 +174,10 @@ void TMVARegression( TString myMethodList = "" )
    if (!gSystem->AccessPathName( fname )) {
       input = TFile::Open( fname ); // check if file in local directory exists
    }
-   else {
-      TFile::SetCacheFileDir(".");
-      input = TFile::Open("http://root.cern.ch/files/tmva_reg_example.root", "CACHEREAD"); // if not: download from ROOT server
-   }
+   // else {
+   //   TFile::SetCacheFileDir(".");
+   //   input = TFile::Open("http://root.cern.ch/files/tmva_reg_example.root", "CACHEREAD"); // if not: download from ROOT server
+   //}
    if (!input) {
       std::cout << "ERROR: could not open data file" << std::endl;
       exit(1);
@@ -186,7 +186,7 @@ void TMVARegression( TString myMethodList = "" )
 
    // Register the regression tree
 
-   TTree *regTree = (TTree*)input->Get("TreeR");
+   TTree *regTree = (TTree*)input->Get("t1");
 
    // global event weights per tree (see below for setting event-wise weights)
    Double_t regWeight  = 1.0;
@@ -196,7 +196,7 @@ void TMVARegression( TString myMethodList = "" )
 
    // This would set individual event weights (the variables defined in the
    // expression need to exist in the original TTree)
-   dataloader->SetWeightExpression( "var1", "Regression" );
+   //dataloader->SetWeightExpression( "var1", "Regression" );
 
    // Apply additional cuts on the signal and background samples (can be different)
    TCut mycut = ""; // for example: TCut mycut = "abs(var1)<0.5 && abs(var2-0.5)<1";
