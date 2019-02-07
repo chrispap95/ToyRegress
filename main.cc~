@@ -65,9 +65,9 @@ int main(int argc, char *argv[])
   for (int i=0;i<ntoy;i++) {
     // pick a random bin
     int j = r.Integer(nbin-2*ngap) +2*ngap;
-    ax=float(j)*(xmax-xmin)/float(nbin)+xmin;
+    float ax=float(j)*(xmax-xmin)/float(nbin)+xmin;
     // get value at that bin
-    ay=histo1->GetBinContent(j);
+    float ay=histo1->GetBinContent(j);
     // get value at two neighboring bins
     low=histo1->GetBinContent(j-ngap);
     high=histo1->GetBinContent(j+ngap);
