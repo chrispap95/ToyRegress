@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 { 
 
   // for output tree
-  TFile *fOUT = new TFile("output.root","RECREATE");
+  TFile *fOUT = new TFile("TMVA_input.root","RECREATE");
   float ax,ay,low,high;
 
   TTree t1("t1","a tree");
@@ -60,8 +60,6 @@ int main(int argc, char *argv[])
   // for toy data
   const int ntoy =100;
   const int ngap=40;
-  std::ofstream myfile;
-  myfile.open("data.txt");
   for (int i=0;i<ntoy;i++) {
     // pick a random bin
     int j = r.Integer(nbin-2*ngap) +2*ngap;
@@ -75,11 +73,9 @@ int main(int argc, char *argv[])
     low=low+r.Gaus(0.,0.01*low);
     high=high+r.Gaus(0.,0.01*low);
     //
-    myfile<<ax<<" "<<ay<<" "<<low<<" "<<high<<std::endl;
     std::cout<<" debug: i="<<i<<" ax="<<ax<<" ay="<<ay<<" low="<<low<<" high="<<high<<std::endl;
     t1.Fill();
   }
-  myfile.close();
   fOUT->Write();
 
 
