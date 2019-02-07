@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 
 
   // for toy data
-  const int ntoy =100;
+  const int ntoy =10000;
   const int ngap=40;
   for (int i=0;i<ntoy;i++) {
     // pick a random bin

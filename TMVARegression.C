@@ -150,17 +150,18 @@ void TMVARegression( TString myMethodList = "" )
    // Define the input variables that shall be used for the MVA training
    // note that you may also use variable expressions, such as: "3*var1/var2*abs(var3)"
    // [all types of expressions that can also be parsed by TTree::Draw( "expression" )]
-   dataloader->AddVariable( "var1", "Variable 1", "units", 'F' );
-   dataloader->AddVariable( "var2", "Variable 2", "units", 'F' );
+   dataloader->AddVariable( "ax", "x value", "units", 'F' );
+   dataloader->AddVariable( "low", "below missing", "units", 'F' );
+   dataloader->AddVariable( "high", "above missing", "units", 'F' );
 
    // You can add so-called "Spectator variables", which are not used in the MVA training,
    // but will appear in the final "TestTree" produced by TMVA. This TestTree will contain the
    // input variables, the response values of all trained MVAs, and the spectator variables
-   dataloader->AddSpectator( "spec1:=var1*2",  "Spectator 1", "units", 'F' );
-   dataloader->AddSpectator( "spec2:=var1*3",  "Spectator 2", "units", 'F' );
+   //dataloader->AddSpectator( "spec1:=var1*2",  "Spectator 1", "units", 'F' );
+   //dataloader->AddSpectator( "spec2:=var1*3",  "Spectator 2", "units", 'F' );
 
    // Add the variable carrying the regression target
-   dataloader->AddTarget( "fvalue" );
+   dataloader->AddTarget( "ay" );
 
    // It is also possible to declare additional targets for multi-dimensional regression, ie:
    //     factory->AddTarget( "fvalue2" );
@@ -169,7 +170,7 @@ void TMVARegression( TString myMethodList = "" )
    // Read training and test data (see TMVAClassification for reading ASCII files)
    // load the signal and background event samples from ROOT trees
    TFile *input(0);
-   TString fname = "./tmva_reg_example.root";
+   TString fname = "./TMVA_input.root";
    if (!gSystem->AccessPathName( fname )) {
       input = TFile::Open( fname ); // check if file in local directory exists
    }
