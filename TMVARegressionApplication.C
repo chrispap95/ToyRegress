@@ -94,14 +94,15 @@ void TMVARegressionApplication( TString myMethodList = "" )
 
    // Create a set of variables and declare them to the reader
    // - the variable names MUST corresponds in name and type to those given in the weight file(s) used
-   Float_t var1, var2;
-   reader->AddVariable( "var1", &var1 );
-   reader->AddVariable( "var2", &var2 );
+   Float_t ax,low,high;
+   reader->AddVariable( "ax", &ax );
+   reader->AddVariable( "low", &low );
+   reader->AddVariable( "high", &high );
 
    // Spectator variables declared in the training have to be added to the reader, too
-   Float_t spec1,spec2;
-   reader->AddSpectator( "spec1:=var1*2",  &spec1 );
-   reader->AddSpectator( "spec2:=var1*3",  &spec2 );
+   //Float_t spec1,spec2;
+   //reader->AddSpectator( "spec1:=var1*2",  &spec1 );
+   //reader->AddSpectator( "spec2:=var1*3",  &spec2 );
 
    // --- Book the MVA methods
 
@@ -131,14 +132,14 @@ void TMVARegressionApplication( TString myMethodList = "" )
    // we'll later on use only the "signal" events for the test in this example.
    //
    TFile *input(0);
-   TString fname = "./tmva_reg_example.root";
+   TString fname = "./TMVA_input.root";
    if (!gSystem->AccessPathName( fname )) {
       input = TFile::Open( fname ); // check if file in local directory exists
    }
-   else {
-      TFile::SetCacheFileDir(".");
-      input = TFile::Open("http://root.cern.ch/files/tmva_reg_example.root", "CACHEREAD"); // if not: download from ROOT server
-   }
+   //else {
+   //   TFile::SetCacheFileDir(".");
+   //   input = TFile::Open("http://root.cern.ch/files/tmva_reg_example.root", "CACHEREAD"); // if not: download from ROOT server
+   // }
    if (!input) {
       std::cout << "ERROR: could not open data file" << std::endl;
       exit(1);
@@ -152,10 +153,11 @@ void TMVARegressionApplication( TString myMethodList = "" )
    // - you can use the same variables as above which is slightly faster,
    //   but of course you can use different ones and copy the values inside the event loop
    //
-   TTree* theTree = (TTree*)input->Get("TreeR");
+   TTree* theTree = (TTree*)input->Get("t1");
    std::cout << "--- Select signal sample" << std::endl;
-   theTree->SetBranchAddress( "var1", &var1 );
-   theTree->SetBranchAddress( "var2", &var2 );
+   theTree->SetBranchAddress( "ax", &ax );
+   theTree->SetBranchAddress( "low", &low );
+   theTree->SetBranchAddress( "high", &high );
 
    std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
    TStopwatch sw;
