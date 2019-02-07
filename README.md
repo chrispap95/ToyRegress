@@ -21,4 +21,5 @@ make the toy data
 
 run the regression
   root.exe
-     > .x TMVARegression.C
+     > .L TMVARegression.C
+     > TMVARegression("BDT")
