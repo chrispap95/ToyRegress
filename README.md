@@ -25,7 +25,7 @@ run the regression
      > TMVARegression("BDT")
 
 
-to use the result (not done yet)
+to use the result 
    root.exe
       > .L TMVARegressionApplication.C
       >TMVARegressionApplication("BDT")
